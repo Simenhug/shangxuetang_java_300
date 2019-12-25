@@ -1,0 +1,9 @@
+package com.simen.sorm.utils;
+/**
+ * 封装了反射常用的操作
+ * @author xinmianhuang
+ *
+ */
+public class ReflectUtil {
+
+}

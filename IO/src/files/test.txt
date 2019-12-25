@@ -1,0 +1,24 @@
+This item is a FAIL as the following items failed from yesterday's submission for your braggart test:
+
+- 5KV41751 - 6c3a9aa3-95c1-4063-9e5d-ff9087cbde5e - "details\":[{\"propertyPath\":\"executingBroker\",\"message\":\"must include valid 4 character MPID for executingBroker for executionRoute AWAY\"},{\"propertyPath\":\"executionVenue\",\"message\":\"Execution venue OTC is not supported with security type OPTION\"}]}]}"
+- 5KV05135 - 9c06b51e-9769-454d-9c09-f22b982d4bf8 - "details\":[{\"propertyPath\":\"executingBroker\",\"message\":\"must include valid 4 character MPID for executingBroker for executionRoute AWAY\"},{\"propertyPath\":\"executionVenue\",\"message\":\"Execution venue OTC is not supported with security type OPTION\"},{\"propertyPath\":\"securityIdType\",\"message\":\"securityIdType SYMBOL format for securityType OPTION must match [A-Z0-9 ]{1,6}[0-9]{6}[C|P][0-9]{8}\"}]}]}"
+- 5KV05105 - faed55b9-162b-4186-9562-5ab6817ede0a - "details\":[{\"propertyPath\":\"executionVenue\",\"message\":\"cannot include executionVenue for executionRoute MNGD\"},{\"propertyPath\":\"executingBroker\",\"message\":\"cannot include executingBroker for executionRoute MNGD\"},{\"propertyPath\":\"executionVenue\",\"message\":\"Execution venue OTC is not supported with security type OPTION\"}]}]}"
+- 5KV05105 - 17944ae6-0de0-4333-91d0-cd9ec5fd5b02 - "details\":[{\"propertyPath\":\"executingBroker\",\"message\":\"cannot include executingBroker for executionRoute MNGD\"},{\"propertyPath\":\"executionVenue\",\"message\":\"Execution venue OTC is not supported with security type OPTION\"},{\"propertyPath\":\"executionVenue\",\"message\":\"cannot include executionVenue for executionRoute MNGD\"}]}]}"
+- 5KV05988 - e30a4e21-5cfa-44ca-b001-f7b6aa4a15fb - "details\":[{\"propertyPath\":\"executionVenue\",\"message\":\"Execution venue OTC is not supported with security type OPTION\"},{\"propertyPath\":\"executingBroker\",\"message\":\"must include valid 4 character MPID for executingBroker for executionRoute AWAY\"},{\"propertyPath\":\"securityIdType\",\"message\":\"securityIdType SYMBOL format for securityType OPTION must match [A-Z0-9 ]{1,6}[0-9]{6}[C|P][0-9]{8}\"}]}]}"
+- 5KV41751 - a6f72003-e2cb-46be-bae4-09ddf2ad2a9a - "details\":[{\"propertyPath\":\"executingBroker\",\"message\":\"must include valid 4 character MPID for executingBroker for executionRoute AWAY\"},{\"propertyPath\":\"executionVenue\",\"message\":\"Execution venue OTC is not supported with security type OPTION\"},{\"propertyPath\":\"securityIdType\",\"message\":\"securityIdType SYMBOL format for securityType OPTION must match [A-Z0-9 ]{1,6}[0-9]{6}[C|P][0-9]{8}\"}]}]}"
+
+Please review the messages and make the necessary corrections and resubmit today to be processed and reviewed.
+
+Thank you,
+Tech Integration Department
+214-765-1002
+APEX Clearing Corporation
+
+=========== Issue Details ===========
+ISSUE NUMBER:
+ON-19977
+
+SUMMARY:
+<Webull Option> Braggart Certification - Round 1
+
+DESCRIPTION:

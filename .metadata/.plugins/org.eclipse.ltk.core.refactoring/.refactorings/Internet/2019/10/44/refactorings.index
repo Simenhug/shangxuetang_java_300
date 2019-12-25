@@ -1,0 +1,12 @@
+1572310336453	Rename type 'Client'
+1572310363168	Rename type 'Server'
+1572310646931	Rename package 'com.simen.internet.tcp.chat'
+1572310666142	Copy package
+1572310694052	Rename type 'SingleThreadClient'
+1572310702076	Rename type 'SingleThreadServer'
+1572314731512	Rename package 'com.simen.internet.tcp.Chat'
+1572314768246	Rename package 'singleClientChat'
+1572314807915	Copy package
+1572385114281	Copy package
+1572394191837	Rename package 'com.simen.internet.tcp.privateChat'
+1572496761982	Copy compilation unit

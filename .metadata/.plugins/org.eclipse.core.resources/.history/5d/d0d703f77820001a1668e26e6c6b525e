@@ -1,0 +1,61 @@
+package com.simen.jdbc;
+
+/*
+ * 测试Date和Timestamp
+ */
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.util.Random;
+
+public class Demo6 {
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		Connection con = null;
+		PreparedStatement stmt = null;
+		try {
+			// 加载驱动类
+			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/Dec2019test", "root", "sangumaolu");
+			stmt = con.prepareStatement("insert into t_user (username, password, regTime, lastLogin) values (?,?,?,?)");
+			for (int i = 0; i < 1000; i++) {
+				stmt.setObject(1, "simen"+i);
+				stmt.setObject(2, "lovedella");
+				int rand = 1000000000 + new Random().nextInt(1000000000);
+				stmt.setDate(3, new java.sql.Date(System.currentTimeMillis()-rand));
+				stmt.setTimestamp(4, new Timestamp(System.currentTimeMillis()));
+				stmt.execute();
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			try {
+				con.rollback(); //这里rollback不加也行
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		} finally {
+			//关闭顺序：resultset-->statement-->connection
+			try {
+				if (stmt != null) {
+					stmt.close();
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			try {
+				if (con != null) {
+					con.close();
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
+}

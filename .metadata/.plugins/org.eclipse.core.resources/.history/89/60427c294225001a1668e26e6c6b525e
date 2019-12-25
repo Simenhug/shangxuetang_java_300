@@ -1,0 +1,7 @@
+package com.simen.sorm.testing;
+
+public class ConnectionPoolSpeedTest {
+	public static void main(String[] args) {
+		
+	}
+}

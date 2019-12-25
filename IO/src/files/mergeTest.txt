@@ -1,0 +1,61 @@
+Allocation Date: Tuesday, October 1, 2019
+Security: N022134 (***NANO DIMENSION LTD
+AMERICAN DEPOSITARY RECEIPTS
+SPONSOR)
+CUSIP: 63008G104
+Symbol: NNDM
+REORG TYPE: Reverse Split
+RATE: 1:10 into 63008G203
+
+5KV-74511-WEA            200.00000
+5KV-67040-WEA            266.00000
+5KV-64073-WEA            500.00000
+5KV-71135-WEA              0.00000
+5KV-82642-WEA            125.00000
+5KV-05282-WEA             10.00000
+5KV-48131-WEA           7000.00000
+5KV-33538-WEA              4.00000
+5KV-38771-WEA             20.00000
+5KV-30718-WEA           5312.00000
+
+*** MANDATORY CORPORATE ACTION NOTICE ***
+
+Note: Cash will be paid on fractional shares.
+
+The following accounts have been adjusted as a result of a Mandatory Corporate Action. 
+
+Please DO NOT reply to this e-mail as it comes from an unattended box.
+
+Thank you.
+Please note that this email is coming from a new address. Please do not reply to this email as it is only for outbound message and is not monitored.
+
+If you have any questions, please contact: corporateactions@apexclearing.com - Reorgs - 214-765-1359
+
+CLIPVWCTXA40 JSQ\srinivasanm (v1.41.0.0)
+
+
+
+This message and any attachments are intended only for the use of the addressee and may contain information that is privileged and confidential. If the reader of the message is not the intended recipient or an authorized representative of the intended recipient, you are hereby notified that any dissemination of this communication is strictly prohibited. If you have received this communication in error, please notify us immediately by e-mail and delete the message and any attachments from your system.This item is a FAIL as the following items failed from yesterday's submission for your braggart test:
+
+- 5KV41751 - 6c3a9aa3-95c1-4063-9e5d-ff9087cbde5e - "details\":[{\"propertyPath\":\"executingBroker\",\"message\":\"must include valid 4 character MPID for executingBroker for executionRoute AWAY\"},{\"propertyPath\":\"executionVenue\",\"message\":\"Execution venue OTC is not supported with security type OPTION\"}]}]}"
+- 5KV05135 - 9c06b51e-9769-454d-9c09-f22b982d4bf8 - "details\":[{\"propertyPath\":\"executingBroker\",\"message\":\"must include valid 4 character MPID for executingBroker for executionRoute AWAY\"},{\"propertyPath\":\"executionVenue\",\"message\":\"Execution venue OTC is not supported with security type OPTION\"},{\"propertyPath\":\"securityIdType\",\"message\":\"securityIdType SYMBOL format for securityType OPTION must match [A-Z0-9 ]{1,6}[0-9]{6}[C|P][0-9]{8}\"}]}]}"
+- 5KV05105 - faed55b9-162b-4186-9562-5ab6817ede0a - "details\":[{\"propertyPath\":\"executionVenue\",\"message\":\"cannot include executionVenue for executionRoute MNGD\"},{\"propertyPath\":\"executingBroker\",\"message\":\"cannot include executingBroker for executionRoute MNGD\"},{\"propertyPath\":\"executionVenue\",\"message\":\"Execution venue OTC is not supported with security type OPTION\"}]}]}"
+- 5KV05105 - 17944ae6-0de0-4333-91d0-cd9ec5fd5b02 - "details\":[{\"propertyPath\":\"executingBroker\",\"message\":\"cannot include executingBroker for executionRoute MNGD\"},{\"propertyPath\":\"executionVenue\",\"message\":\"Execution venue OTC is not supported with security type OPTION\"},{\"propertyPath\":\"executionVenue\",\"message\":\"cannot include executionVenue for executionRoute MNGD\"}]}]}"
+- 5KV05988 - e30a4e21-5cfa-44ca-b001-f7b6aa4a15fb - "details\":[{\"propertyPath\":\"executionVenue\",\"message\":\"Execution venue OTC is not supported with security type OPTION\"},{\"propertyPath\":\"executingBroker\",\"message\":\"must include valid 4 character MPID for executingBroker for executionRoute AWAY\"},{\"propertyPath\":\"securityIdType\",\"message\":\"securityIdType SYMBOL format for securityType OPTION must match [A-Z0-9 ]{1,6}[0-9]{6}[C|P][0-9]{8}\"}]}]}"
+- 5KV41751 - a6f72003-e2cb-46be-bae4-09ddf2ad2a9a - "details\":[{\"propertyPath\":\"executingBroker\",\"message\":\"must include valid 4 character MPID for executingBroker for executionRoute AWAY\"},{\"propertyPath\":\"executionVenue\",\"message\":\"Execution venue OTC is not supported with security type OPTION\"},{\"propertyPath\":\"securityIdType\",\"message\":\"securityIdType SYMBOL format for securityType OPTION must match [A-Z0-9 ]{1,6}[0-9]{6}[C|P][0-9]{8}\"}]}]}"
+
+Please review the messages and make the necessary corrections and resubmit today to be processed and reviewed.
+
+Thank you,
+Tech Integration Department
+214-765-1002
+APEX Clearing Corporation
+
+=========== Issue Details ===========
+ISSUE NUMBER:
+ON-19977
+
+SUMMARY:
+<Webull Option> Braggart Certification - Round 1
+
+DESCRIPTION:

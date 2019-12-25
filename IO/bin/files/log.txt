@@ -1,0 +1,2 @@
+this is a line of a log
+this is a line of an error

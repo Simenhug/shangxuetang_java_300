@@ -1,0 +1,59 @@
+package com.simen.po;
+
+import java.sql.*;
+import java.util.*;
+
+public class T_user{
+
+	private java.sql.Timestamp lastLogin;
+	private String password;
+	private java.sql.Date regTime;
+	private Integer id;
+	private java.sql.Blob avatar;
+	private String username;
+	private String info;
+
+
+	public java.sql.Timestamp getLastLogin(){ 
+	return lastLogin;
+	}
+	public String getPassword(){ 
+	return password;
+	}
+	public java.sql.Date getRegTime(){ 
+	return regTime;
+	}
+	public Integer getId(){ 
+	return id;
+	}
+	public java.sql.Blob getAvatar(){ 
+	return avatar;
+	}
+	public String getUsername(){ 
+	return username;
+	}
+	public String getInfo(){ 
+	return info;
+	}
+	public void setLastLogin(java.sql.Timestamp lastLogin){
+	this.lastLogin = lastLogin;
+	}
+	public void setPassword(String password){
+	this.password = password;
+	}
+	public void setRegTime(java.sql.Date regTime){
+	this.regTime = regTime;
+	}
+	public void setId(Integer id){
+	this.id = id;
+	}
+	public void setAvatar(java.sql.Blob avatar){
+	this.avatar = avatar;
+	}
+	public void setUsername(String username){
+	this.username = username;
+	}
+	public void setInfo(String info){
+	this.info = info;
+	}
+}

@@ -1,0 +1,5 @@
+package com.simen.sorm.testing;
+
+public class ConnectionPoolSpeedTest {
+
+}

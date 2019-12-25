@@ -1,0 +1,5 @@
+package com.simen.sorm.utils;
+
+public class JDBCUtils {
+
+}

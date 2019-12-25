@@ -1,0 +1,51 @@
+package com.simen.sorm.utils;
+
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+
+import com.simen.sorm.bean.ColumnInfo;
+
+/**
+ * 封装了反射常用的操作
+ * @author xinmianhuang
+ *
+ */
+public class ReflectUtils {
+	
+	/**
+	 * 利用反射返回某条数据的指定属性/列的值
+	 * @param column 目标属性
+	 * @param target 目标对象
+	 * @return 目标对象的目标属性值
+	 */
+	public static Object invokeGet(String fieldName, Object target) {
+		Class c = target.getClass();
+		String methodName = "get"+StringUtils.capFirstLetter(fieldName);
+		Method m;
+		try {
+			m = c.getDeclaredMethod(methodName, null);
+			return m.invoke(target, null);
+		} catch (NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	/**
+	 * 利用反射设置目标对象的属性
+	 * @param fieldName 目标属性
+	 * @param target 目标对象
+	 * @param fieldValue 要被写入的值
+	 */
+	public static void invokeSet(String fieldName, Object target, Object fieldValue) {
+		Class c = target.getClass();
+		try {
+			Method m = c.getDeclaredMethod("set"+StringUtils.capFirstLetter(fieldName), fieldValue.getClass());
+			m.invoke(target, fieldValue);
+		} catch (NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+}

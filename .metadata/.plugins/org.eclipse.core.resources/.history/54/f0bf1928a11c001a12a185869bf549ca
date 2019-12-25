@@ -1,0 +1,30 @@
+package com.simen.webCrawler;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.MalformedURLException;
+import java.net.URL;
+
+public class Crawler {
+	
+	public String getHTML(String url) {
+		StringBuilder sb = new StringBuilder();
+		
+		try {
+			URL url = new URL();
+			
+			BufferedReader reader = new BufferedReader(new InputStreamReader(url.openStream()));
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+	public static void main(String[] args) {
+		String html = getHTML("https://www.bbc.com/");
+	}
+}

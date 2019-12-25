@@ -1,0 +1,259 @@
+package com.simen.sorm.core;
+
+import java.io.Serializable;
+import java.lang.reflect.Field;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.simen.po.Emp;
+import com.simen.sorm.bean.ColumnInfo;
+import com.simen.sorm.bean.TableInfo;
+import com.simen.sorm.utils.JDBCUtils;
+import com.simen.sorm.utils.ReflectUtils;
+
+/**
+ * 负责查询（对外提供服务的核心类）
+ * @author simen
+ */
+public abstract class Query implements Cloneable, Serializable{
+	
+	/**
+	 * 采用模板方法模式将JDBC操作封装成模板，便于重用
+	 * @param sql sql语句
+	 * @param clas 结果的Java类
+	 * @param params SQL的参数
+	 * @param callback CallBack的实现类，实现回调
+	 * @return
+	 */
+	public Object executeQueryTemplate(String sql, Class clas, Object[] params, CallBack callback) {
+		Connection con = DBManager.getMysqlConnection();
+		PreparedStatement stmt = null;
+		ResultSet rset = null;
+		try {
+			stmt = con.prepareStatement(sql);
+			JDBCUtils.fillStatement(stmt, params);
+			rset = stmt.executeQuery();
+			
+			return callback.doExecute(con, stmt, rset);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		} finally {
+			DBManager.closeAll(null, stmt, con);
+		}
+	}
+	
+	/**
+	 * 直接执行一个DML语句
+	 * @param sql SQL语句
+	 * @param params 参数
+	 * @return 执行SQL语句后，影响了多少行的数据
+	 */
+	public int executeDML(String sql, Object[] params) {
+		Connection con = DBManager.getMysqlConnection();
+		PreparedStatement stmt = null;
+		try {
+			stmt = con.prepareStatement(sql);
+			JDBCUtils.fillStatement(stmt, params);
+			System.out.println(stmt);
+			return stmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			DBManager.closeAll(null, stmt, con);
+		}
+		return 0;
+	}
+	
+	/**
+	 * 将一个对象存储到数据库中
+	 * @param obj 要存储的对象
+	 */
+	public void insert(Object obj) {
+		// insert into tableName (field1,field2,field3) values (?,?,?)
+		Class c = obj.getClass();
+		TableInfo tableInfo = TableContext.poClassTableMap.get(c);
+		String tname = tableInfo.getTname();
+		List<Object> notNullParams = new ArrayList<Object>();
+		
+		StringBuilder sql = new StringBuilder("insert into "+tname+" (");
+		Field[] fields = c.getDeclaredFields();
+		int notNullFieldsCount = 0;
+		for(Field field: fields) {
+			String fieldName = field.getName();
+			Object fieldValue = ReflectUtils.invokeGet(fieldName, obj);
+			
+			if(fieldValue!=null) {
+				notNullFieldsCount++;
+				sql.append(fieldName+",");
+				notNullParams.add(fieldValue);
+			}
+		}
+		sql.setCharAt(sql.length()-1, ')');
+		sql.append(" values (");
+		for(int i=0;i<notNullFieldsCount;i++) {
+			sql.append("?,");
+		}
+		sql.setCharAt(sql.length()-1, ')');
+		executeDML(sql.toString(), notNullParams.toArray());
+	}
+	
+	/**
+	 * 删除clas表示类对应的表中的记录，根据主键值id匹配
+	 * @param clas 主键值
+	 * @param id
+	 */
+	public void delete(Class clas, Object id) {
+		// 样例：Emp.class, id=2 ---> delete from emp where id=2
+		TableInfo tableInfo = TableContext.poClassTableMap.get(clas);
+		String tname = tableInfo.getTname();
+		//获得主键字段名称 （主键不一定叫id！！）
+		ColumnInfo primKey = tableInfo.getPrimKey();
+		String sql = "delete from "+tname+" where "+primKey.getName()+"=?";
+		executeDML(sql, new Object[] {id});
+	}
+	
+	/**
+	 * 删除obj在数据库中的记录
+	 * @param obj
+	 */
+	public void delete(Object obj) {
+		TableInfo tableInfo = TableContext.poClassTableMap.get(obj.getClass());
+		String tname = tableInfo.getTname();
+		ColumnInfo primKey = tableInfo.getPrimKey();
+		String sql = "delete from " + tname + " where " + primKey.getName() + "=?";
+		executeDML(sql, new Object[] { ReflectUtils.invokeGet(primKey.getName(), obj) });
+	}
+	
+	/**
+	 * 更新对象对应的记录，更新指定的属性
+	 * @param obj 要更新的对象
+	 * @param fields 要更新的属性
+	 * @return 被影响的行数
+	 */
+	public int update(Object obj, String[] fields) {
+		// update tableName set field1=?,field2=? where id=?
+		Class c = obj.getClass();
+		TableInfo tableInfo = TableContext.poClassTableMap.get(c);
+		String tname = tableInfo.getTname();
+		List<Object> params = new ArrayList<Object>();
+		
+		StringBuilder sql = new StringBuilder("update ");
+		sql.append(tname+" set ");
+		for(String field: fields) {
+			sql.append(field+"=?,");
+			Object fieldValue = ReflectUtils.invokeGet(field, obj);
+			params.add(fieldValue);
+		}
+		sql.setCharAt(sql.length()-1, ' ');
+		sql.append("where ");
+		ColumnInfo primKey = tableInfo.getPrimKey();
+		sql.append(primKey.getName()+"=?");
+		params.add(ReflectUtils.invokeGet(primKey.getName(), obj));
+		return executeDML(sql.toString(), params.toArray());
+	}
+
+	/**
+	 * 查询返回多行记录，并将每行记录封装到cla指定的类的对象中。多行多列
+	 * 
+	 * @param sql    查询SQL语句
+	 * @param clas   封装结果的Javabean类的class对象
+	 * @param params sql参数
+	 * @return 查询结果
+	 */
+	public List queryRows(String sql, Class clas, Object[] params) {
+		return (List)executeQueryTemplate(sql, clas, params, new CallBack() {
+			@Override
+			public Object doExecute(Connection con, PreparedStatement stmt, ResultSet rset) {
+				List results = null;
+				try {
+					ResultSetMetaData meta = rset.getMetaData();
+					// 遍历每行
+					while (rset.next()) {
+						if (results == null) {
+							results = new ArrayList<Object>();
+						}
+						// 遍历每列
+						Object rowObj = clas.newInstance();
+						int columnCount = meta.getColumnCount();
+						for (int i = 0; i < columnCount; i++) {
+							String columnName = meta.getColumnLabel(i + 1); // 从1开始数！！
+							ReflectUtils.invokeSet(columnName, rowObj, rset.getObject(i + 1)); // 从1开始数！！
+						}
+						results.add(rowObj);
+					}
+				} catch (InstantiationException | IllegalAccessException | SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				return results;
+			}
+		});
+	}
+
+	/**
+	 * 查询返回一行记录，并将记录封装到cla指定的类的对象中。一行多列
+	 * @param sql 查询SQL语句
+	 * @param clas 封装结果的Javabean类的class对象
+	 * @param params sql参数
+	 * @return 查询结果
+	 */
+	public Object querySingleRow(String sql, Class clas, Object[] params) {
+		List results = queryRows(sql, clas, params);
+		return (results==null||results.size()>1)?null:results.get(0); //如果没有结果或结果大于一条，返回空。
+	}
+	
+	/**
+	 * 查询返回一个值，并将该值返回。一行一列
+	 * @param sql 查询SQL语句
+	 * @param params sql参数
+	 * @return 查询结果
+	 */
+	public Object queryValue(String sql, Object[] params) {
+		return executeQueryTemplate(sql, null, params, new CallBack() {
+
+			@Override
+			public Object doExecute(Connection con, PreparedStatement stmt, ResultSet rset) {
+				Object value = null;
+				try {
+					// 遍历每行
+					while (rset.next()) {
+						value = rset.getObject(1);
+					}
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} finally {
+					DBManager.closeAll(null, stmt, con);
+				}
+				return value;
+			}
+		});
+	}
+	
+	/**
+	 * 查询返回一个数字，包括int double long等等，并将该值返回。一行一列
+	 * @param sql 查询SQL语句
+	 * @param params sql参数
+	 * @return 查询结果
+	 */
+	public Number queryNumber(String sql, Object[] params) {
+		// TODO Auto-generated method stub
+		return (Number)queryValue(sql, params);
+	}
+
+	/**
+	 * 分页查询
+	 * @param pageNum 第几页数据
+	 * @param size 每页显示多少记录
+	 * @return
+	 */
+	public abstract Object queryPagination(int pageNum, int size);
+}

@@ -1,0 +1,5 @@
+package com.simen.orm;
+
+public class Dept {
+
+}

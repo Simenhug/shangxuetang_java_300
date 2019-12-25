@@ -1,0 +1,47 @@
+package com.simen.sorm.pool;
+
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.simen.sorm.core.DBManager;
+
+public class DBConnectionPool {
+	private static List<Connection> conPool = null;
+	private static int MIN_CONN_SIZE = DBManager.getConfig().getMinConnectionPoolSize();
+	private static int MAX_CONN_SIZE = DBManager.getConfig().getMaxConectionPoolSize();
+	
+	private void init() {
+		conPool = new ArrayList<Connection>();
+		while(conPool.size()<MIN_CONN_SIZE) {
+			conPool.add(DBManager.createMysqlConnection());
+		}
+	}
+	
+	public DBConnectionPool() {
+		init();
+	}
+	
+	public synchronized Connection getConnection() {
+		Connection con = conPool.remove(conPool.size()-1);
+		if(conPool.size()<MIN_CONN_SIZE) {
+			conPool.add(DBManager.createMysqlConnection());
+		}
+		return con;
+	}
+	
+	public synchronized void close(Connection con) {
+		if(conPool.size()<MAX_CONN_SIZE) {
+			conPool.add(con);
+		} else {
+			try {
+				con.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
+	
+}

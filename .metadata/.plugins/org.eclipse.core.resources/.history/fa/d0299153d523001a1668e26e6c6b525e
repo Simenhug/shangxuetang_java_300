@@ -1,0 +1,61 @@
+package com.simen.sorm.core;
+
+import java.util.List;
+
+public class MySqlQuery implements Query{
+
+	@Override
+	public int executeDML(String sql, Object[] params) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public void insert(Object obj) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void delete(Class clas, Object id) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void delete(Object obj) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public int update(Object obj, String[] fields) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public List queryRows(String sql, Class clas, Object[] params) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Object querySingleRow(String sql, Class clas, Object[] params) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Object queryValue(String sql, Object[] params) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Number queryNumber(String sql, Object[] params) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

@@ -1,0 +1,39 @@
+package com.simen.orm;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
+
+/*
+ * 测试使用Object数组来封装记录
+ */
+public class Demo1 {
+	public static void main(String[] args) {
+		ResultSet rs = null;
+		Connection con = null;
+		PreparedStatement stmt = null;
+		List<Object[]> records = new ArrayList<Object[]>();
+		try {
+			con = JDBCUtil.getMysqlConnection();
+			stmt = con.prepareStatement("select empname,birthday,salary from emp");
+			rs = stmt.executeQuery();
+			while(rs.next()) {
+				Object[] temp = new Object[3];
+				temp[0] = rs.getString("empname");
+				temp[1] = rs.getDate("birthday");
+				temp[2] = rs.getInt("salary");
+				records.add(temp);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			JDBCUtil.closeAll(rs, stmt, con);
+			for(Object[] record: records) {
+				System.out.print(""+record[0]+" "+record[1]+" "+record[2]));
+				System.out.println();
+			}
+		}
+	}
+}

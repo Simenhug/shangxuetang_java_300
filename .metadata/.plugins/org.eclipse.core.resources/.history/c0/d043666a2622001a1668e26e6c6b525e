@@ -1,0 +1,4 @@
+mysqlURL:jdbc:mysql://localhost:3306/SORM
+mysqlUser:root
+mysqlPassword:sangumaolu
+usingDB: mysql

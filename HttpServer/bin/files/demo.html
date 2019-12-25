@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>first html form</title>
+</head>
+<body>
+	<pre>method: 请求方式 get/post
+		get:数据量小，安全性不高，默认方式
+		post:数据量大，安全性相对高
+		action：请求的服务器路径
+		id：编号，前端（浏览器）区分唯一性，JavaScript中使用
+		name：名称，后端（服务器）区分唯一性，获取值
+		如果要提交数据给后台，name必须存在
+	</pre>
+	<form method="post" action="http://localhost:8888/index.html">
+		用户名：<input type="text" name="username" id="name"/>
+		密码：<input type="password" name="password" id="pass"/>
+		兴趣：<input type="checkbox" name="hobbies" value="0"/>篮球
+		<input type="checkbox" name="hobbies" value="1"/>足球
+		<input type="checkbox" name="hobbies" value="2"/>冲浪
+		<input type="submit" value="登录"/>
+	</form>
+</body>
+</html>

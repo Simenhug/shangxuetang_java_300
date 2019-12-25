@@ -1,0 +1,34 @@
+CREATE TABLE `t_guest` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `username` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `password` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `regTime` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci
+
+
+0101345
+0123-4567312
+010-1234678
+
+
+Reject Review NOTIFICATION
+
+12/11/2019 2:20:14 PM
+
+ATTENTION:	Apex Correspondent - WEBULL FINANCIAL LLC (WBUL)
+gil@webull-us.com;Brendan@webull-us.com;mike@webull-us.com;cooper@webull-us.com;john@webull-us.com;katusa@webull-us.com;Michael@webull-us.com;simen@webull-us.com;anthony@webull-us.com;shen@webull-us.com;
+RE:	IRA Deposit Slip	(DocCode: UIDS)
+For Account No:	5KY27219	
+CHRISTEL MBIZI
+Rep Id:	WEA
+
+The above referenced document has received a status of Reject Review based upon the following:
+
+The document(s)/agreements(s) submitted by your firm was rejected based upon the following reasons:
+The associate reviewing the document advised:Amount is still not posted in the account, kindly resubmit the Deposit slip once the amount is posted.
+In order for the document(s)/agreement(s) to be approved the below listed action must be taken:
+
+Resubmit the completed document(s)/agreement(s) to DocImaging@apexclearing.com.
+
+Rejected document(s)/agreement(s) can be accessed via the secure PostEdge application. Document(s)/Agreement(s) that have been rejected can be retrieved by the Scan Document Id number this is listed below under “Reference Scan Document ID Number(s)”.

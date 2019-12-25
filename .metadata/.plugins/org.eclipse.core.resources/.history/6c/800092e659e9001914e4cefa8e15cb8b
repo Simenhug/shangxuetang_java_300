@@ -1,0 +1,48 @@
+package com.simen.collection;
+
+import java.util.*;
+
+public class MyMap {
+	
+	Entry[] elements = new Entry[1000];
+	
+	int size;
+	
+	public void put(Entry entry) {
+		elements[size] = entry;
+		size++;
+	}
+	
+	public Object get(Object key) {
+		for(Entry entry: elements) {
+			if(key.equals(entry.key)){
+				return entry.value;
+			}
+		}
+		System.out.println("key not found!");
+		return null;
+	}
+	
+	public static void main(String[] args) {
+		MyMap mm = new MyMap();
+		mm.put("Simen", "Della");
+		mm.put(entry);
+	}
+
+}
+
+
+
+class Entry{
+	
+	Object key;
+	Object value;
+	
+	
+	public Entry(Object key, Object value) {
+		super();
+		this.key = key;
+		this.value = value;
+	}
+	
+}

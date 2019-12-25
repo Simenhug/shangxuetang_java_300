@@ -1,0 +1,55 @@
+package com.simen.sormdemo.test;
+
+import com.simen.sorm.core.Query;
+import com.simen.sorm.core.QueryFactory;
+import com.simen.test.po.Emp;
+
+public class Test {
+
+	public static void main(String[] args) {
+//		TableContext.createAllJavaFiles();
+		
+		update();
+	}
+	
+	public static void add() {
+		Emp e = new Emp();
+		e.setAge(18);
+		e.setEmpname("gabe");
+		e.setSalary(6000.0);
+		
+		Query q = QueryFactory.createQuery();
+		q.insert(e);
+	}
+	
+	public static void select() {
+		Query q = QueryFactory.createQuery();
+		Number n = q.queryNumber("select count(*) from emp where salary>?", new Object[] {100});
+		System.out.println(n);
+	}
+	
+	public static void delete() {
+		Emp e = new Emp();
+		e.setAge(18);
+		e.setEmpname("gabe");
+		e.setId(14);
+		Query q = QueryFactory.createQuery();
+		q.delete(e);
+	}
+	
+	public static void update() {
+		Emp e = new Emp();
+		e.setAge(18);
+		e.setEmpname("della");
+		e.setId(11);
+		e.setSalary(100000.0);
+		Query q = QueryFactory.createQuery();
+		q.update(e, new String[] {"salary"});
+	}
+	
+	public static void selectrow() {
+		Query q = QueryFactory.createQuery();
+		Emp e = (Emp)q.querySingleRow("select * from emp where id=?", Emp.class, new Object[] {11});
+		System.out.println(e.getEmpname());
+	}
+}

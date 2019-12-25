@@ -1,0 +1,5 @@
+package com.simen.jdbc;
+
+public class JDBCUtil {
+
+}

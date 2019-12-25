@@ -1,0 +1,30 @@
+package com.simen.sormdemo.test;
+
+import com.simen.sorm.core.Query;
+import com.simen.sorm.core.QueryFactory;
+import com.simen.test.po.Emp;
+
+public class Test {
+
+	public static void main(String[] args) {
+//		TableContext.createAllJavaFiles();
+		
+		select();
+	}
+	
+	public static void add() {
+		Emp e = new Emp();
+		e.setAge(18);
+		e.setEmpname("gabe");
+		e.setSalary(6000.0);
+		
+		Query q = QueryFactory.createQuery();
+		q.insert(e);
+	}
+	
+	public static void select() {
+		Query q = QueryFactory.createQuery();
+		Number n = q.queryNumber("select count(*) from emp where salary>?", new Object[] {100});
+		System.out.println(n);
+	}
+}

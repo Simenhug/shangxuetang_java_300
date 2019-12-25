@@ -1,0 +1,5 @@
+package com.simen.sorm.core;
+
+public class MySqlQuery {
+
+}

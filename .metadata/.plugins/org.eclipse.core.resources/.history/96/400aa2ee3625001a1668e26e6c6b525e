@@ -1,0 +1,48 @@
+package com.simen.sorm.core;
+
+import java.lang.reflect.Field;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.simen.po.Emp;
+import com.simen.sorm.bean.ColumnInfo;
+import com.simen.sorm.bean.TableInfo;
+import com.simen.sorm.utils.JDBCUtils;
+import com.simen.sorm.utils.ReflectUtils;
+import com.simen.sorm.utils.StringUtils;
+import com.simen.vo.EmpVo;
+
+public class MySqlQuery extends Query{
+	
+	public static void main(String[] args) {
+//		List<Emp> results = new MySqlQuery().queryRows("select * from emp where id<?", 
+//				Emp.class, new Object[] {1000});
+//		for (Emp emp: results) {
+//			System.out.println(emp.getEmpname()+" "+emp.getAge());
+//		}
+		
+		//联表SQL查询
+//		String sql = "select e.empname, e.age, e.salary+e.bonus 'income', d.address 'deptAddr' from emp e\n" + 
+//				"join dept d on e.deptid=d.id";
+//		List<EmpVo> results = new MySqlQuery().queryRows(sql, EmpVo.class, null);
+//		for(EmpVo data: results) {
+//			System.out.println(data.getEmpname()+" "+data.getDeptAddr());
+//		}
+		
+		Object count = new MySqlQuery().queryValue("select count(*) from emp where id>?", new Object[] {10});
+		Number num = new MySqlQuery().queryNumber("select bonus from emp where id=?", new Object[] {11});
+		System.out.println(count+" "+num);
+	}
+
+	
+	@Override
+	public Object queryPagination(int pageNum, int size) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+}

@@ -1,0 +1,75 @@
+package com.simen.sorm.core;
+
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.List;
+
+public class MySqlQuery implements Query{
+
+	@Override
+	public int executeDML(String sql, Object[] params) {
+		// TODO Auto-generated method stub
+		try {
+			PreparedStatement stmt = DBManager.getMysqlConnection().prepareStatement(sql);
+			int count = 0;
+			for(Object param: params) {
+				stmt.setObject(count++, params);
+			}
+			return stmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return 0;
+	}
+
+	@Override
+	public void insert(Object obj) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void delete(Class clas, Object id) {
+		// 样例：Emp.class, id=2 ---> delete from emp where id=2
+		String sql = "delet from " 
+		
+	}
+
+	@Override
+	public void delete(Object obj) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public int update(Object obj, String[] fields) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public List queryRows(String sql, Class clas, Object[] params) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Object querySingleRow(String sql, Class clas, Object[] params) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Object queryValue(String sql, Object[] params) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Number queryNumber(String sql, Object[] params) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

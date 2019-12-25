@@ -1,0 +1,5 @@
+package com.simen.sorm.bean;
+
+public class Configuration {
+
+}

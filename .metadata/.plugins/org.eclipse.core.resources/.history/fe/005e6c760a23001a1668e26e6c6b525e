@@ -1,0 +1,46 @@
+package com.simen.sorm.core;
+/**
+ * mysql数据类型和Java数据类型的转换
+ * @author xinmianhuang
+ *
+ */
+public class MySqlTypeConvertor implements TypeConvertor{
+
+	@Override
+	public String databaseType2Java(String columnType) {
+		switch (columnType) {
+		case "varchar":
+			return "String";
+		// 整数类
+		case "int":
+		case "tinyint":
+		case "smallint":
+		case "integer":
+			return "Integer";
+		case "bigint":
+			return "Long";
+		case "double":
+		case "float":
+			return "Double";
+		case "clob":
+			return "java.sql.Clob";
+		case "blob":
+			return "java.sql.Blob";
+		case "date":
+			return "java.sql.Date";
+		case "time":
+			return "java.sql.Time";
+		case "timestamp":
+			return "java.sql.Timestamp";
+		}
+		System.out.println(columnType + " currently not supported by MqlTypeConvertor");
+		return null;
+	}
+
+	@Override
+	public String javaType2Database(String javaType) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

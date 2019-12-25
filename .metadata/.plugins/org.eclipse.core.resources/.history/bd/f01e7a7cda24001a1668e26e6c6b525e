@@ -1,0 +1,191 @@
+package com.simen.sorm.core;
+
+import java.lang.reflect.Field;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.simen.po.Emp;
+import com.simen.sorm.bean.ColumnInfo;
+import com.simen.sorm.bean.TableInfo;
+import com.simen.sorm.utils.JDBCUtils;
+import com.simen.sorm.utils.ReflectUtils;
+import com.simen.sorm.utils.StringUtils;
+import com.simen.vo.EmpVo;
+
+public class MySqlQuery implements Query{
+	
+	public static void main(String[] args) {
+//		List<Emp> results = new MySqlQuery().queryRows("select * from emp where id<?", 
+//				Emp.class, new Object[] {1000});
+		
+		List<Emp> results = new MySqlQuery().queryRows("select id,empname,age from emp where age>? and salary<?",
+				Emp.class, new Object[] {3,999999});
+		System.out.println(results.size());
+		
+		//联表SQL查询
+//		String sql = "select e.empname, e.age, e.salary+e.bonus 'income', d.address 'deptAddr' from emp e\n" + 
+//				"join dept d on e.deptid=d.id";
+//		List<EmpVo> results = new MySqlQuery().queryRows(sql, EmpVo.class, null);
+//		System.out.println(results.size());
+	}
+
+	@Override
+	public int executeDML(String sql, Object[] params) {
+		// TODO Auto-generated method stub
+		Connection con = DBManager.getMysqlConnection();
+		PreparedStatement stmt = null;
+		try {
+			stmt = con.prepareStatement(sql);
+			JDBCUtils.fillStatement(stmt, params);
+			System.out.println(stmt);
+			return stmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			DBManager.closeAll(null, stmt, con);
+		}
+		return 0;
+	}
+
+	/**
+	 * 将一个对象存储到数据库中
+	 * 把对象中不为null的属性往数据库中存储！如果数字为null则放0
+	 * @param 要存储的对象
+	 */
+	@Override
+	public void insert(Object obj) {
+		// insert into tableName (field1,field2,field3) values (?,?,?)
+		Class c = obj.getClass();
+		TableInfo tableInfo = TableContext.poClassTableMap.get(c);
+		String tname = tableInfo.getTname();
+		List<Object> notNullParams = new ArrayList<Object>();
+		
+		StringBuilder sql = new StringBuilder("insert into "+tname+" (");
+		Field[] fields = c.getDeclaredFields();
+		int notNullFieldsCount = 0;
+		for(Field field: fields) {
+			String fieldName = field.getName();
+			Object fieldValue = ReflectUtils.invokeGet(fieldName, obj);
+			
+			if(fieldValue!=null) {
+				notNullFieldsCount++;
+				sql.append(fieldName+",");
+				notNullParams.add(fieldValue);
+			}
+		}
+		sql.setCharAt(sql.length()-1, ')');
+		sql.append(" values (");
+		for(int i=0;i<notNullFieldsCount;i++) {
+			sql.append("?,");
+		}
+		sql.setCharAt(sql.length()-1, ')');
+		executeDML(sql.toString(), notNullParams.toArray());
+	}
+
+	@Override
+	public void delete(Class clas, Object id) {
+		// 样例：Emp.class, id=2 ---> delete from emp where id=2
+		TableInfo tableInfo = TableContext.poClassTableMap.get(clas);
+		String tname = tableInfo.getTname();
+		//获得主键字段名称 （主键不一定叫id！！）
+		ColumnInfo primKey = tableInfo.getPrimKey();
+		String sql = "delete from "+tname+" where "+primKey.getName()+"=?";
+		executeDML(sql, new Object[] {id});
+	}
+
+	@Override
+	public void delete(Object obj) {
+		TableInfo tableInfo = TableContext.poClassTableMap.get(obj.getClass());
+		String tname = tableInfo.getTname();
+		ColumnInfo primKey = tableInfo.getPrimKey();
+		String sql = "delete from " + tname + " where " + primKey.getName() + "=?";
+		executeDML(sql, new Object[] { ReflectUtils.invokeGet(primKey.getName(), obj) });
+	}
+
+	@Override
+	public int update(Object obj, String[] fields) {
+		// update tableName set field1=?,field2=? where id=?
+		Class c = obj.getClass();
+		TableInfo tableInfo = TableContext.poClassTableMap.get(c);
+		String tname = tableInfo.getTname();
+		List<Object> params = new ArrayList<Object>();
+		
+		StringBuilder sql = new StringBuilder("update ");
+		sql.append(tname+" set ");
+		for(String field: fields) {
+			sql.append(field+"=?,");
+			Object fieldValue = ReflectUtils.invokeGet(field, obj);
+			params.add(fieldValue);
+		}
+		sql.setCharAt(sql.length()-1, ' ');
+		sql.append("where ");
+		ColumnInfo primKey = tableInfo.getPrimKey();
+		sql.append(primKey.getName()+"=?");
+		params.add(ReflectUtils.invokeGet(primKey.getName(), obj));
+		return executeDML(sql.toString(), params.toArray());
+	}
+	
+	/**
+	 * 查询多行多列
+	 */
+	@Override
+	public List queryRows(String sql, Class clas, Object[] params) {
+		Connection con = DBManager.getMysqlConnection();
+		List<Object> results = null;
+		PreparedStatement stmt = null;
+		ResultSet rset = null;
+		try {
+			stmt = con.prepareStatement(sql);
+			JDBCUtils.fillStatement(stmt, params);
+			System.out.println(stmt);
+			rset = stmt.executeQuery();
+			ResultSetMetaData meta = rset.getMetaData();
+			//遍历每行
+			while(rset.next()) {
+				if(results==null) {
+					results = new ArrayList<Object>();
+				}
+				//遍历每列
+				Object rowObj = clas.newInstance();
+				int columnCount = meta.getColumnCount();
+				for(int i=0;i<columnCount;i++) {
+					System.out.println("-----------"+rset.getObject(i+1)+" "+rset.getObject(i+1).getClass());
+					String columnName = meta.getColumnLabel(i+1); //从1开始数！！
+					ReflectUtils.invokeSet(columnName, rowObj, rset.getObject(i+1)); //从1开始数！！
+				}
+				results.add(rowObj);
+			}
+		} catch (SQLException | InstantiationException | IllegalAccessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			DBManager.closeAll(null, stmt, con);
+		}
+		return results;
+	}
+
+	@Override
+	public Object querySingleRow(String sql, Class clas, Object[] params) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Object queryValue(String sql, Object[] params) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Number queryNumber(String sql, Object[] params) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

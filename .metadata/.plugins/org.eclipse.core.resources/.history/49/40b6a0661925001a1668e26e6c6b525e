@@ -1,0 +1,10 @@
+package com.simen.sorm.core;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSetMetaData;
+
+public interface CallBack {
+	
+	public void doExecute(Connection con, PreparedStatement stmt, ResultSetMetaData rs);
+}

@@ -1,0 +1,20 @@
+package com.simen.jdbc;
+
+import java.io.IOException;
+import java.util.Properties;
+
+public class JDBCUtil {
+	public static Properties prop = null;
+	static {
+		prop = new Properties();
+		try {
+			prop.load(Thread.currentThread().getContextClassLoader().getResourceAsStream("db.properties"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	public static void main(String[] args) {
+		System.out.println("hello");
+	}
+}

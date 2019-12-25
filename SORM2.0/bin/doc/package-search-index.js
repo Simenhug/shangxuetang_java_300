@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"com.simen.sorm.bean"},{"l":"com.simen.sorm.core"},{"l":"com.simen.sorm.pool"},{"l":"com.simen.sorm.utils"}]

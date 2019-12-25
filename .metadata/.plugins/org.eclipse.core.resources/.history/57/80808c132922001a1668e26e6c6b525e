@@ -1,0 +1,32 @@
+package com.simen.sorm.core;
+/**
+ * 根据配置信息，维持连接对象的管理（增加连接池功能）
+ * @author xinmianhuang
+ *
+ */
+
+import java.io.IOException;
+import java.util.Properties;
+
+import com.simen.sorm.bean.Configuration;
+
+public class DBManager {
+	private static Configuration conf;
+	private static Properties prop;
+	static {
+		conf = new Configuration();
+		prop = new Properties();
+		try {
+			prop.load(Thread.currentThread().getClass().getResourceAsStream("sormdb.properties"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		conf.setMysqlURL(prop.getProperty("mysqlURL"));
+		conf.setMysqlUser(prop.getProperty("mysqlUser"));
+		conf.setMysqlPassword(prop.getProperty("password"));
+		conf.setPoPackage(prop.getProperty("poPackage"));
+		conf.setUsingDB(prop.getProperty("usingDB"));
+		conf.setSrcPath(prop.getProperty("srcPath"));
+	}
+}

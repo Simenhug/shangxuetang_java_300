@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename type &apos;com.simen.dynamic.demo.Demo&apos; to &apos;DynamicCompile&apos;&#x0A;- Original project: &apos;DynamicCompiling&apos;&#x0A;- Original element: &apos;com.simen.dynamic.demo.Demo&apos;&#x0A;- Renamed element: &apos;com.simen.dynamic.demo.DynamicCompile&apos;&#x0A;- Update references to refactored element&#x0A;- Update textual occurrences in comments and strings" description="Rename type &apos;Demo&apos;" flags="589830" id="org.eclipse.jdt.ui.rename.type" input="/src&lt;com.simen.dynamic.demo{Demo.java[Demo" matchStrategy="1" name="DynamicCompile" qualified="false" references="true" similarDeclarations="false" stamp="1573178583416" textual="false" version="1.0"/>
+</session>

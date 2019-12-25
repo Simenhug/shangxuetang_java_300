@@ -1,0 +1,14 @@
+package com.simen.sorm.bean;
+/***
+ * 管理配置信息
+ * @author xinmianhuang
+ *
+ */
+public class Configuration {
+	private mysqlURL;
+	private mysqlUser;
+	private mysqlPassword;
+	private usingDB;
+	private srcPath;
+	private poPackage;
+}

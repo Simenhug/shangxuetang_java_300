@@ -1,0 +1,7 @@
+mysqlURL:jdbc:mysql://localhost:3306/SORM
+mysqlUser:root
+mysqlPassword:sangumaolu
+usingDB: mysql
+srcPath: /Users/xinmianhuang/Documents/codeheaven/shangxuetang/SORM/src
+poPackage: com.simen.po
+queryClass: com.simen.sorm.core.MySqlQuery

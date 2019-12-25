@@ -1,0 +1,9 @@
+package com.simen.sorm.bean;
+/***
+ * 管理配置信息
+ * @author xinmianhuang
+ *
+ */
+public class Configuration {
+
+}

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<list key="org.eclipse.ui.internal.wizards.datatransfer.SmartImportRootWizardPage.knownSources">
+		<item value="/Users/xinmianhuang/Documents/codeheaven/shangxuetang/mypro01"/>
+		<item value="/Users/xinmianhuang/Documents/codeheaven/shangxuetang/Collection"/>
+		<item value="/Users/xinmianhuang/Documents/codeheaven/shangxuetang/SolarSystem"/>
+		<item value="/Users/xinmianhuang/Documents/codeheaven/shangxuetang/MySolar"/>
+		<item value="/Users/simenhuang/Documents/codeheaven/shangxuetang/PlaneGame/src"/>
+		<item value="/Users/xinmianhuang/Documents/codeheaven/shangxuetang/PlaneGame"/>
+		<item value="/Users/xinmianhuang/Documents/codeheaven/shangxuetang"/>
+		<item value="/Users/simenhuang/Documents/codeheaven/shangxuetang"/>
+	</list>
+	<section name="NewWizardAction">
+	</section>
+	<section name="CleanDialogSettings">
+		<item key="DIALOG_X_ORIGIN" value="598"/>
+		<item key="DIALOG_Y_ORIGIN" value="277"/>
+		<item key="DIALOG_WIDTH" value="484"/>
+		<item key="DIALOG_HEIGHT" value="372"/>
+		<item key="TOGGLE_SELECTED" value="false"/>
+	</section>
+	<section name="org.eclipse.ui.dialogs.FilteredResourcesSelectionDialog">
+		<item key="ShowStatusLine" value="true"/>
+		<item key="History" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&#x0A;&lt;History&gt;&#x0A;&lt;historyRootNode/&gt;&#x0A;&lt;/History&gt;"/>
+		<item key="ShowDerived" value="false"/>
+		<item key="FilterByLocation" value="false"/>
+		<item key="WorkingSet" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&#x0A;&lt;workingSet workingSetName=&quot;&quot;/&gt;"/>
+		<section name="DialogBoundsSettings">
+			<item key="DIALOG_HEIGHT" value="500"/>
+			<item key="DIALOG_WIDTH" value="600"/>
+			<item key="DIALOG_X_ORIGIN" value="540"/>
+			<item key="DIALOG_Y_ORIGIN" value="192"/>
+			<item key="DIALOG_FONT_NAME" value="1|.AppleSystemUIFont|11.0|0|COCOA|1|.AppleSystemUIFont"/>
+		</section>
+	</section>
+</section>
